@@ -1,4 +1,4 @@
-package com.portfolio.jv;
+package com.portfolioweb.jv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
