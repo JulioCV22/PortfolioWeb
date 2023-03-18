@@ -1,0 +1,36 @@
+
+.footer{
+     color: #fefefe;
+     font-size: 14px;
+     display: flex;
+     flex-direction: column;
+     text-align: center;
+     box-shadow: 2px -2px 5px #494848;
+}
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+@media (min-width:449px){
+     .h-custom {
+          height: 100%;
+          
+          left: 4%;
+          top: 620px;
+
+     }
+}
+
