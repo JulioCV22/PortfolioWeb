@@ -72,6 +72,11 @@
             <artifactId>spring-security-config</artifactId>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

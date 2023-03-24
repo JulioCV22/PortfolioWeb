@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin (origins = "http://localhost:8080")
 public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -47,7 +47,7 @@ public class AuthController {
     JwtProvider jwtProvider;
    
     @PostMapping("/nuevo")
-public ResponseEntity<?> nuevo (@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
+public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
     
     if (bindingResult.hasErrors())
         return new ResponseEntity(new Mensaje("Campos mal puestos o email invalido"), HttpStatus.BAD_REQUEST);
@@ -58,8 +58,8 @@ public ResponseEntity<?> nuevo (@Valid @RequestBody NuevoUsuario nuevoUsuario, B
     if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
         return new ResponseEntity(new Mensaje("Ese email ya existe"), HttpStatus.BAD_REQUEST);
     
-    Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario()
-            , nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
+    Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
+            nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
     
     Set<Rol> roles = new HashSet<>();
     roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
@@ -90,8 +90,8 @@ public ResponseEntity<?> nuevo (@Valid @RequestBody NuevoUsuario nuevoUsuario, B
         
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }
-
-    private static class bindingResult {
+  
+  private static class bindingResult {
 
         private static boolean hasErrors() {
             return true;

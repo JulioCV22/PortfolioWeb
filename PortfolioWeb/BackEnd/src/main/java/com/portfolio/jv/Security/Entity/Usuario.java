@@ -15,10 +15,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- *
- * @author Usuario
- */
+
 
 @Entity
 public class Usuario {
