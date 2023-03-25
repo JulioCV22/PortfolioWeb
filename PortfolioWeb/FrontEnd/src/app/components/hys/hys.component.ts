@@ -8,13 +8,12 @@ import { TokenService } from 'src/app/service/token.service';
   templateUrl: './hys.component.html',
   styleUrls: ['./hys.component.css']
 })
-
 export class HysComponent implements OnInit {
-skill: Skill[] = [];
+  skill: Skill[] = [];
 
-  constructor(private skillS: SkillService, private tokenService: TokenService,) {}
-isLogged = false;
-
+  constructor(private skillS: SkillService, private tokenService: TokenService) { }
+  isLogged = false;
+  
   ngOnInit(): void {
     this.cargarSkills();
     if(this.tokenService.getToken()){
@@ -31,6 +30,7 @@ isLogged = false;
       }
     )
   }
+
   delete(id: number){
     if(id != undefined){
       this.skillS.delete(id).subscribe(

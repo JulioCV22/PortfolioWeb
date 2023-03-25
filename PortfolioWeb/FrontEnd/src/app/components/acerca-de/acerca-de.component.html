@@ -7,11 +7,15 @@
 </div>
 solo expresiones para un backend: ej: Tamaño de  rejilla en acerca de
 -->
+<div>
+     <button type="button" class="btn btn-primary" routerLink="/editacercade/1" *ngIf="isLogged">
+          Editar persona
+     </button>
+</div>
+
 <div class="row">
      
-          <button type="button" class="btn btn-primary" routerLink="/editacercade/1" *ngIf="isLogged">
-               Editar persona
-          </button>
+         
 
      <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
           <img src={{persona.img}} 

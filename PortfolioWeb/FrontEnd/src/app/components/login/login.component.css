@@ -1,6 +1,6 @@
 
 .footer{
-     color: #fefefe;
+     color: #a6b9e6;
      font-size: 14px;
      display: flex;
      flex-direction: column;
@@ -13,7 +13,7 @@
 content: "";
 flex: 1;
 height: 1px;
-background: #eee;
+background: #8a8ac2;
 }
 .h-custom {
 height: calc(100% - 73px);
