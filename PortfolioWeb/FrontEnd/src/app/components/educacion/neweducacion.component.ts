@@ -9,17 +9,12 @@ import { EducacionService } from 'src/app/service/educacion.service';
   styleUrls: ['./neweducacion.component.css']
 })
 export class NeweducacionComponent  implements OnInit {
-  public get router(): Router {
-    return this.router;
-  }
-  public set router(value: Router) {
-    this.router = value;
-  }
+ 
   nombreE: string = '';
   descripcionE: string = '';
 
  
-  constructor(private educacionS: EducacionService) { }
+  constructor(private educacionS: EducacionService, private router: Router) { }
  
   ngOnInit(): void {
     

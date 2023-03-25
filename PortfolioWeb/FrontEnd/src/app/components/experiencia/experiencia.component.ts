@@ -13,13 +13,9 @@ expe: Experiencia[] = [];
 
 constructor(private sExperiencia: SExperienciaService, private tokenService: TokenService){}
  
-  private isLogged = false;
-  public get isLogged() {
-    return this.isLogged;
-  }
-  public set isLogged(value) {
-    this.isLogged = value;
-  }
+isLogged = false;
+
+  
 
   ngOnInit(): void {
     this.cargarExperiencia();
@@ -31,18 +27,18 @@ constructor(private sExperiencia: SExperienciaService, private tokenService: Tok
   }
 
   cargarExperiencia():void{
-  this.sExperiencia.lista().subscribe(data => {this.expe = data})
+  this.sExperiencia.lista().subscribe(data => {this.expe = data; })
 }
 
 delete(id?: number){
   if(id != undefined){
-    this.sExperiencia.delete(id).subscribe{
+    this.sExperiencia.delete(id).subscribe(
       data => {
         this.cargarExperiencia();
       },err => {
         alert("No se oudo borrar la experiencia");
       }
-    }
+    )
   }
 }
 

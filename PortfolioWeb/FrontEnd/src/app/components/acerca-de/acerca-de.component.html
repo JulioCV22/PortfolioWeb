@@ -8,28 +8,30 @@
 solo expresiones para un backend: ej: Tamaño de  rejilla en acerca de
 -->
 <div class="row">
+     
+          <button type="button" class="btn btn-primary" routerLink="/editacercade/1" *ngIf="isLogged">
+               Editar persona
+          </button>
+
      <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-          <img src="../../../assets/perfil.png" 
+          <img src={{persona.img}} 
           class="img-fluid"
           id="fotodeperfil">
      </div>
      <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-          <p id="nombre">
+          <p id="nombre">{{persona.nombre}} {{persona.apellido}}</p>
                <link rel="preconnect" href="https://fonts.googleapis.com">
                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> 
-               {{persona.nombre}} {{persona.apellido}}
+               
                Julio C. Vargas
-          </p>
+          
           <p>FrondEnd Developer Jr</p>
      </div>
      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
           <span>
                <h1>Acerca de mi</h1>
-               <p>Estudiante en el profesorado de Ciencias Economicas. Curso en el curso de Argentina Programa como desarrollador fullstack devolrer jr.
-                    Trabajo en equipo con predisposicion, colaboracion y comparto conocimientos tecnologicos. Se que no hay perfeccion en proyectos pero siempre 
-                    busco la excelencia tratando de mejorar, aprendiendo nuevos conocimientos, escuchando, proponiendo para la mejora continua de mi ambito
-                    laboral. Quisiera trabajar de lo que me gusta, como desarrollador web.
+               <p>{{persona.descripcion}}
                </p>
           </span>
      </div>

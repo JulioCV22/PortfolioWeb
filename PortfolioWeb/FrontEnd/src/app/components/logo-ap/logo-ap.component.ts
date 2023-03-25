@@ -8,15 +8,10 @@ import { TokenService } from 'src/app/service/token.service';
   styleUrls: ['./logo-ap.component.css']
 })
 export class LogoAPComponent implements OnInit {
-  public get tokenService(): TokenService {
-    return this._tokenService;
-  }
-  public set tokenService(value: TokenService) {
-    this._tokenService = value;
-  }
+
 isLogged = false;
 
-  constructor(private router:Router, private _tokenService: TokenService){}
+  constructor(private router:Router, private tokenService: TokenService){}
 
   ngOnInit(): void {
     if (this.tokenService.getToken()){
