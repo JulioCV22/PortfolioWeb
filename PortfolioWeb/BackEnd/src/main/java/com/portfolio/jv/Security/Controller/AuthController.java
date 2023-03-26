@@ -1,3 +1,4 @@
+
 package com.portfolio.jv.Security.Controller;
 
 import com.portfolio.jv.Security.Dto.JwtDto;
@@ -11,7 +12,6 @@ import com.portfolio.jv.Security.Service.UsuarioService;
 import com.portfolio.jv.Security.jwt.JwtProvider;
 import jakarta.validation.Valid;
 import java.util.HashSet;
-
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,11 +29,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin (origins = "http://localhost:8080")
+@CrossOrigin(origins = {"https://mgbfrontend.web.app","http://localhost:4200"})
 public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -45,35 +43,34 @@ public class AuthController {
     RolService rolService;
     @Autowired
     JwtProvider jwtProvider;
-   
+    
     @PostMapping("/nuevo")
-public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
-    
-    if (bindingResult.hasErrors())
-        return new ResponseEntity(new Mensaje("Campos mal puestos o email invalido"), HttpStatus.BAD_REQUEST);
-    
-    if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
-        return new ResponseEntity(new Mensaje("Ese nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
-    
-    if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-        return new ResponseEntity(new Mensaje("Ese email ya existe"), HttpStatus.BAD_REQUEST);
-    
-    Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
+    public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity(new Mensaje("Campos mal puestos o email invalido"),HttpStatus.BAD_REQUEST);
+        
+        if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
+            return new ResponseEntity(new Mensaje("Ese nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
+        
+        if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
+            return new ResponseEntity(new Mensaje("Ese email ya existe"), HttpStatus.BAD_REQUEST);
+        
+        Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
             nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
+        
+        Set<Rol> roles = new HashSet<>();
+        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
+        
+        if(nuevoUsuario.getRoles().contains("admin"))
+            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+        usuario.setRoles(roles);
+        usuarioService.save(usuario);
+        
+        return new ResponseEntity(new Mensaje("Usuario guardado"),HttpStatus.CREATED);
+    }
     
-    Set<Rol> roles = new HashSet<>();
-    roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
-    
-    if(nuevoUsuario.getRoles().contains("admin"))
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
-    usuario.setRoles(roles);
-    usuarioService.save(usuario);
-    
-    return new ResponseEntity(new Mensaje("Usuario guardado"),HttpStatus.CREATED);
-}
-
-@PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindigResult){
+    @PostMapping("/login")
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
         
@@ -90,14 +87,5 @@ public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, Bi
         
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }
-  
-  private static class bindingResult {
-
-        private static boolean hasErrors() {
-            return true;
-        }
-
-        public bindingResult() {
-        }
-    }
+    
 }

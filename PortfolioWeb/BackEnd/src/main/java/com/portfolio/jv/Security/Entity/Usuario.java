@@ -13,7 +13,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import org.springframework.security.core.GrantedAuthority;
 
 
 
@@ -37,15 +39,14 @@ public class Usuario {
     
     //Constructores
 
-    public Usuario() {
-    }
-
+  
     public Usuario(Strings nombre, Strings nombreUsuario, Strings email, Strings password) {
         this.nombre = nombre;
         this.nombreUsuario = nombreUsuario;
         this.email = email;
         this.password = password;
     }
+
     
     //Getter Y Setter
 
